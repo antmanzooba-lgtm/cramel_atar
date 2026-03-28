@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>כראמל - הפורטל הרשמי</title>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7681548243324084" crossorigin="anonymous"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* הגדרת צבעים - כחול וכתום כפי שביקשת */
+        :root { 
+            --orange: #FF8C00; 
+            --light-orange: #FFA500;
+            --dark-blue: #0A192F; 
+            --mid-blue: #112240;
+            --light-blue: #64FFDA;
+            --bg-color: #020C1B;
+        }
+        
+        * { box-sizing: border-box; outline: none; }
+        
+        body { 
+            background: var(--bg-color); 
+            color: #CCD6F6; 
+            font-family: 'Rubik', sans-serif; 
+            margin: 0; 
+            background-image: radial-gradient(circle at 50% 0%, var(--dark-blue) 0%, var(--bg-color) 70%);
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center;
+        }
+
+        /* התראות מעוצבות חכמות */
+        #custom-alert { 
+            position: fixed; top: -100px; left: 50%; transform: translateX(-50%); 
+            width: 85%; max-width: 400px; padding: 20px; border-radius: 15px; 
+            text-align: center; font-weight: bold; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            z-index: 9999; box-shadow: 0 10px 30px rgba(0,0,0,0.8); 
+            border: 2px solid rgba(255,255,255,0.1); font-size: 18px;
+        }
+        .alert-success { background: linear-gradient(135deg, #11998e, #38ef7d); color: #fff; }
+        .alert-error { background: linear-gradient(135deg, #cb2d3e, #ef473a); color: #fff; }
+
+        /* כותרת עליונה */
+        .header { padding: 30px 20px; text-align: center; width: 100%; }
+        .logo { 
+            font-size: 40px; font-weight: 900; color: var(--orange); 
+            border: 3px solid var(--orange); padding: 10px 30px; 
+            border-radius: 20px; display: inline-block;
+            box-shadow: 0 0 20px rgba(255, 140, 0, 0.3);
+            text-shadow: 0 0 10px rgba(255, 140, 0, 0.5);
+        }
+
+        /* תפריט ניווט עליון */
+        .nav { 
+            display: flex; gap: 15px; margin-bottom: 30px; 
+            background: var(--mid-blue); padding: 10px; 
+            border-radius: 15px; border: 1px solid var(--light-blue);
+        }
+        .nav-btn { 
+            background: transparent; color: var(--light-blue); 
+            border: none; padding: 10px 20px; border-radius: 10px; 
+            cursor: pointer; font-weight: bold; font-size: 16px;
+            transition: 0.3s;
+        }
+        .nav-btn:hover { background: rgba(100, 255, 218, 0.1); }
+        .nav-btn.active { background: var(--orange); color: var(--dark-blue); }
+
+        /* דפים */
+        .page { display: none; width: 95%; max-width: 700px; animation: fadeIn 0.5s; margin-bottom: 50px; }
+        .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* עיצוב כרטיסיות (קופסאות תוכן) */
+        .card { 
+            background: var(--mid-blue); padding: 30px; 
+            border-radius: 20px; border-right: 6px solid var(--orange); 
+            line-height: 1.8; font-size: 18px; margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        
+        /* כותרות פנימיות */
+        h2 { color: var(--orange); border-bottom: 2px solid rgba(255, 140, 0, 0.3); padding-bottom: 10px; }
+        h3 { color: var(--light-blue); }
+
+        /* אזור החידון */
+        .pts-ui { font-size: 24px; font-weight: 900; color: var(--light-blue); margin-bottom: 15px; text-align: center; }
+        .q-text { font-size: 24px; font-weight: bold; color: var(--orange); text-align: center; margin-bottom: 25px; min-height: 60px; }
+        .input-display { 
+            width: 100%; min-height: 65px; background: var(--bg-color); 
+            border: 2px solid var(--light-blue); border-radius: 12px; 
+            display: flex; align-items: center; justify-content: center; 
+            font-size: 24px; margin-bottom: 20px; padding: 10px; 
+            text-align: center; color: #fff;
+        }
+        
+        /* מקלדת חכמה */
+        .kb { display: grid; grid-template-columns: repeat(9, 1fr); gap: 6px; }
+        .key { 
+            background: #1A2B4C; padding: 15px 0; border-radius: 8px; 
+            text-align: center; cursor: pointer; font-weight: bold; 
+            border: 1px solid #2C3E50; transition: 0.1s; font-size: 18px;
+        }
+        .key:active { background: var(--orange); color: #000; transform: scale(0.95); }
+        .key.wide { grid-column: span 3; background: var(--light-blue); color: var(--dark-blue); }
+        .btn-main { 
+            width: 100%; padding: 18px; background: linear-gradient(to left, var(--orange), var(--light-orange)); 
+            color: var(--dark-blue); border: none; border-radius: 12px; 
+            font-weight: 900; font-size: 22px; cursor: pointer; 
+            margin-top: 20px; transition: 0.3s; box-shadow: 0 5px 15px rgba(255, 140, 0, 0.4);
+        }
+        .btn-main:active { transform: translateY(3px); }
+
+    </style>
+</head>
+<body>
+
+    <div id="custom-alert"></div>
+
+    <div class="header">
+        <div class="logo">פורטל כראמל</div>
+    </div>
+
+    <div class="nav">
+        <button class="nav-btn active" onclick="switchPage('quiz-page', this)">חידון חכם</button>
+        <button class="nav-btn" onclick="switchPage('story-page', this)">סיפורים</button>
+        <button class="nav-btn" onclick="switchPage('theory-page', this)">תיאוריות</button>
+    </div>
+
+    <div id="quiz-page" class="page active">
+        <div class="pts-ui" id="pts-display">PTS: 0</div>
+        <div class="card">
+            <div class="q-text" id="question">טוען שאלה...</div>
+            <div class="input-display" id="typing-area"></div>
+            <div class="kb" id="kb"></div>
+            <button class="btn-main" onclick="checkAnswer()">שלח תשובה</button>
+        </div>
+    </div>
+
+    <div id="story-page" class="page">
+        <div class="card">
+            <h2>זה פרק 1</h2>
+            <p>
+                לפני הרבה מאוד שנים," פתח כראמל בקולו העמוק והמסתורי, עיניו הירוקות בורקות בחשיכה היחסית של החדר, "חי חתול אחד. הוא לא היה סתם חתול, הוא רצה להוכיח לכולם את היכולות הקסומות שלו. בשביל זה, הוא עשה את הדבר הכי מסוכן שאפשר לדמיין: הוא צעד לבדו אל תוך היער האפל."<br><br>
+                רובי וג'יין נשענו קדימה, מרותקים.<br><br>
+                "הוא נכנס למערה עמוקה וקרה," המשיך כראמל, "ועמד שם באומץ. הוא לא פחד. הוא פשוט קרא בקול רם לדוב הגדול, בדיוק כשהוא היה באמצע שנת החורף שלו..."<br><br>
+                "למה שמישהו שפוי יעשה דבר כזה?!" התפרץ פתאום קול מוכר מהפתח.<br><br>
+                רובי וג'יין קפצו בבהלה. אלאל עמד שם, ידיו שלובות, ומאחוריו הופיעה הלנה עם חיוך רחב ומסתורי.<br><br>
+                "הלנה? אלאל?" שאל רובי בבלבול, "מה אתם עושים פה? כראמל בדיוק הגיע לחלק המעניין!"<br><br>
+                "באנו להגיד לכם משהו הרבה יותר מעניין," אמרה הלנה, ועיניה נצצו מהתרגשות. "נולד לכם אח!"<br><br>
+                החדר השתתק לרגע. רובי וג'יין החליפו מבטים המומים, וברגע הבא זינקו ממקומם. "אח?! באמת?!" הם צעקו יחד ורצו במהירות לכיוון המדרגות, מוכנים לרדת למטה בזינוקים.<br><br>
+                "טוב, כראמל," קרא רובי מעבר לכתפו בזמן שרץ, "נשמע את המשך הסיפור שלך בפעם אחרת!"<br><br>
+                כראמל נותר לבדו בחדר. הוא נאנח, מתח את איבריו וליקק את כפו בנחת. "ילדים," הוא מלמל לעצמו, "תמיד חסרי סבלנות."<br><br>
+                כעבור ארבע שנים...
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>פרק 2</h2>
+            <p>
+                אולם הסעודות בטירת ג'רום היה מואר וחגיגי. על השולחן נפרסו מפות לבנות והטבחים הגישו מגשים עמוסים בדגים, מאפים וקנקני מיץ צוננים. זה היה ערב מיוחד – ג'יין חזרה הביתה אחרי שנה שלמה שבילתה עם הוריה, מרגרט ופרדריק, והשמחה הייתה בשיאה.<br><br>
+                סביב השולחן ישבו שלושת האחים – רובי, אל-אל וגול. גול היה עסוק בציור מדויק של דגם מכונית חדש על גב התפריט, בעוד אל-אל והלנה הקשיבו מרותקים לסיפורים של ג'יין. ג'יין לא הפסיקה לדבר על הספינה של אמא שלה ועל איך אבא שלה חזר לעצמו לאט לאט אחרי הזמן בעולם התמונה.<br><br>
+                ויש ישב במקומו הקבוע, נהנה מהשקט שלו ומצלחת הפסטה עם המלח. רינגו הלטאה נחה לידו, עיניה הקטנות עוקבות אחרי התנועות בחדר.<br><br>
+                גברת בלום ישבה בראש השולחן כאורחת כבוד. היא הגיעה במיוחד מהטירה שלה ושל הפרופסור כדי לראות את אוליבר בן הארבע. היא ליטפה את ראשו של אוליבר בחום, והוא מצדו נשען עליה בביטחון.<br><br>
+                גברת בלום קמה לרגע והניחה צלחת עם סלמון מובחר ושמנת סמיכה לפני כראמל, שרבץ על הכיסא ליד אוליבר. "תאכל, גוש פרווה," היא אמרה , "אוליבר ביקש ממני לוודא שאתה אוכל, ואני לא יכולה לסרב לו."<br><br>
+                כראמל זקף את זנבו וגרגר בנחת. "ובכן," הוא הכריז בקולו העמוק שכולם בחדר שמעו, "אני חייב להודות שהביקורים של גברת בלום הם תמיד רגעי השיא של הקולינריה בטירה הזו. אוליבר, יש לך טעם מצוין בבחירת חברים."<br><br>
+                אוליבר צחק וחיבק את היד של גברת בלום. "בלום! פה!" הוא אמר בשמחה.
+            </p>
+        </div>
+    </div>
+
+    <div id="theory-page" class="page">
+        <div class="card">
+            <h2>התאוריה *תעלומת גן החיות: האם הזמן בעולמו של כראמל השתבש?*</h2>
+            <p>בספר 7 נאמר שגן החיות הוקם לפני 250 שנה. באופן מפתיע, בספר 9 (שאמור להתרחש זמן קצר לאחר מכן), נאמר שהגן הוקם לפני 253 שנים. איך עברו שלוש שנים בלי שאף אחת מהדמויות התבגרה ביום?</p>
+            
+            <h3>1. ההסבר החיצוני (הטעות)</h3>
+            <p>האפשרות הפשוטה היא שמדובר בטעות של הסופרת. לפעמים בתוך עולם עשיר עם כל כך הרבה פרטים, ציר הזמן יכול להתבלבל מעט. אבל עבורנו, המעריצים, זה לא מספיק – אנחנו מחפשים את הסיפור שמאחורי הטעות!</p>
+            
+            <h3>2. ההסבר הפנימי (המסמך הישן)</h3>
+            <p>יכול להיות שהמידע בספר 7 התבסס על מסמך שנכתב לפני שלוש שנים. כשהפקידה קראה אותו בספר 7, היא לא ידעה שהנתון לא מעודכן, ורק בספר 9 היא קראה במספר המדויק והעדכני.</p>
+            
+            <h3>3. "תיאוריית שיבוש הזמן" (ההסבר העמוק)</h3>
+            <p>כאן זה נהיה מעניין. אם הזמן אכן "קפץ" שלוש שנים קדימה אבל כולם נשארו באותו גיל, ייתכן שמישהו שיחק עם חוקי היקום:</p>
+            <ul>
+                <li><strong>הקשר של מיכאלאנג'לו:</strong> החתול המדבר שלמד בבית הספר של כראמל, ייתכן שחזרה שלו בזמן יצרה "קפלי זמן" שגרמו לשנים להיעלם מבלי שהתושבים ירגישו.</li>
+                <li><strong>כראמל הרשע ועולם התמונה:</strong> אנחנו מניחים שכראמל הרשע ביצע שליטה בזמן. כי כמובן הזמן הוא החזק ביותר. אם הוא ביצע שינוי מאסיבי בעולם התמונה, ההדים של השינוי הזה יכלו לזלוג לעולם האמיתי.</li>
+            </ul>
+            <p><strong>התוצאה:</strong> העולם "דילג" שלוש שנים קדימה מבחינה כרונולוגית, אבל הביולוגיה של האנשים נעצרה. זה מסביר למה הגן חיות "הזדקן" בשלוש שנים, אבל הילדים לא גדלו.</p>
+        </div>
+    </div>
+
+    <script>
+        // ניהול תפריט ומעבר בין דפים
+        function switchPage(pageId, btnElement) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+        }
+
+        // 37 השאלות לחידון
+        const quizDatabase = [
+            { q: "מהו הייחוד הבולט של כראמל החתול?", a: "הוא יודע לדבר ויש לו כוחות קסם רבים.", keys: ["חתול מדבר", "קסם", "כוחות"] },
+            { q: "מהו המשפט המפורסם של גברת בלום?", a: "מה זה השטויות האלה?", keys: ["שטויות"] },
+            { q: "מה אומר גובו כשהוא מתרגש?", a: "שיגאון משגע!", keys: ["שיגאון", "משגע"] },
+            { q: "מה ויש אוכל בעקביות ובאופן קבוע?", a: "רק פסטה עם מלח.", keys: ["פסטה", "מלח"] },
+            { q: "מה מאפיין את גול מבין האחים (במה הוא הכי טוב)?", a: "הוא בעל כישורי סריגה יוצאי דופן.", keys: ["סריגה"] },
+            { q: "מי הדמות שמתגלה כרוח רפאים בתוך בקבוקון סגול?", a: "גובו.", keys: ["גובו"] },
+            { q: "אילו שלושה נכסים חולקו בירושה יחד עם שלוש הטבעות?", a: "טירה, מפעל וחתול פלאי.", keys: ["טירה", "מפעל", "חתול"] },
+            { q: "מי מקבל את הטירה לפי הבחירה בטבעת האדומה?", a: "אל-אל.", keys: ["אל אל", "אלאל"] },
+            { q: "איזו טבעת מביאה לבעליה את כראמל?", a: "הטבעת הכחולה.", keys: ["כחולה"] },
+            { q: "מהו סדר הגילאים של האחים לבית ג'רום (מהגדול לקטן)?", a: "אל-אל, גול ורובי.", keys: ["אל אל", "גול", "רובי"] },
+            { q: "איך נקראת הטבעת שמי שעונד אותה נשכח מכולם?", a: "טבעת השכחה.", keys: ["השכחה", "שכחה"] },
+            { q: "מי עונד את טבעת השכחה בסיום עונה 2?", a: "גברת בלום.", keys: ["בלום"] },
+            { q: "מי מקבל את כראמל מרובי בסוף עונה 3?", a: "ויש.", keys: ["ויש"] },
+            { q: "מי הוא פרופסור דוויל ומה מטרתו העיקרית?", a: "מדען שרוצה לחיות לנצח.", keys: ["מדען", "לנצח"] },
+            { q: "מי מסייע לפרופסור דוויל בעונה 3?", a: "ביאטריס המשוכפלת ואזמרלדה.", keys: ["ביאטריס", "אזמרלדה"] },
+            { q: "מי שודד הים האימתני שמופיע בעונה 4?", a: "ויגו יד הברזל.", keys: ["ויגו"] },
+            { q: "מי הדמות שמנסה לחטוף את כראמל לאורך עונות 2 עד 4?", a: "אודיל.", keys: ["אודיל"] },
+            { q: "למי מתחזה אודיל כשהיא מגיעה כנגנית נבל?", a: "קורנליה דה-לורנצו.", keys: ["קורנליה"] },
+            { q: "איזה חפץ קסום מאפשר להפנט דמויות אחרות?", a: "שעון ההיפנוזה.", keys: ["שעון", "היפנוזה"] },
+            { q: "איך נקרא המכשיר של דוויל שגורם לדברים ולאנשים להיעלם?", a: "המעלימטור.", keys: ["מעלימטור"] },
+            { q: "מה קורה למי שבולע את 'טיפות האמת' של דוויל?", a: "הוא חייב לומר רק את האמת.", keys: ["אמת"] },
+            { q: "מהו ה'שיבולטור'?", a: "מכשיר של דוויל שמשכפל אנשים.", keys: ["שיבולטור", "משכפל"] },
+            { q: "מי מתגלה בתור 'אטלס', הגנב הבינלאומי המפורסם?", a: "ברונו.", keys: ["ברונו", "אטלס"] },
+            { q: "מי היא ג'יין לפי סיפור העלילה?", a: "ילדה שברחה מבית היתומים.", keys: ["גיין", "יתומים", "ג'יין"] },
+            { q: "מי המכשף המפורסם שהוא צאצא של מרלין?", a: "קונפוציוס.", keys: ["קונפוציוס"] },
+            { q: "מי היא הבת של גברת בלום?", a: "הלנה.", keys: ["הלנה"] },
+            { q: "מהו הקשר המשפחתי של הקטור לילדים?", a: "הוא דוד שלהם.", keys: ["דוד"] },
+            { q: "מה מתגלה בתחילת עונה 4 לגבי ספ ומילה?", a: "שהם הפכו להורים לתינוק בשם אוליבר.", keys: ["אוליבר"] },
+            { q: "מי תלמיד הקולנוע המפורסם שמגיע לבית הספר בעונה 3?", a: "מקסימיליאן דומינגו", keys: ["מקסימיליאן", "מקסימלאן"] },
+            { q: "מי היא אהבת הסריגה של גול שהופכת לבת הזוג שלו?", a: "ברברה.", keys: ["ברברה"] },
+            { q: "מה שמו של שומר הטירה הקשוח?", a: "פרנקו.", keys: ["פרנקו"] },
+            { q: "מה קורה לפרנקו בעונה 4 ומי אחראי לכך?", a: "הוא נהרג על ידי ויגו (וחוזר לחיים בזכות ג'יין).", keys: ["נהרג", "ויגו"] },
+            { q: "מי הדמות הכפולה שמנסה להזהיר את יושבי הטירה בעונה 3?", a: "ביאטריס הטובה.", keys: ["ביאטריס", "טובה"] },
+            { q: "מי מגלה לרובי על קיומה של טבעת השכחה כשהם ביער?", a: "הקטור.", keys: ["הקטור"] },
+            { q: "מי הדמות שממלמדת את האחרים לקרוא שפת גוף?", a: "פרנקו.", keys: ["שפת", "גוף", "פרנקו"] },
+            { q: "מי מקים את עיתון בית הספר במהלך עונה 3?", a: "אל-אל.", keys: ["עיתון", "אל אל", "אלאל"] },
+            { q: "למי מתחזה גברת בלום כדי לעבוד במטבח בית הספר?", a: "אזמרלדה.", keys: ["אזמרלדה"] }
+        ];
+
+        let currentPoints = parseInt(localStorage.getItem('kramel_pts')) || 0;
+        let questionIndex = parseInt(localStorage.getItem('kramel_q_idx')) || 0;
+        let userText = "";
+
+        // יצירת המקלדת
+        function buildKeyboard() {
+            const kbContainer = document.getElementById('kb');
+            const letters = "פםןוטארקףךלחיעכגדשץתצמנהבסז".split("");
+            letters.forEach(letter => {
+                let btn = document.createElement('div');
+                btn.className = 'key'; 
+                btn.innerText = letter;
+                btn.onclick = () => { userText += letter; updateDisplay(); };
+                kbContainer.appendChild(btn);
+            });
+            
+            createSpecialKey("רווח", () => userText += " ");
+            createSpecialKey("מחק", () => userText = userText.slice(0, -1));
+            createSpecialKey("נקה", () => userText = "");
+            
+            updateScoreUI();
+            showNextQuestion();
+        }
+
+        function createSpecialKey(text, actionFunc) {
+            let btn = document.createElement('div');
+            btn.className = 'key wide'; 
+            btn.innerText = text;
+            btn.onclick = () => { actionFunc(); updateDisplay(); };
+            document.getElementById('kb').appendChild(btn);
+        }
+
+        function updateDisplay() { 
+            document.getElementById('typing-area').innerText = userText; 
+        }
+
+        function showNextQuestion() {
+            if(questionIndex >= quizDatabase.length) questionIndex = 0; // לולאה חוזרת
+            document.getElementById('question').innerText = quizDatabase[questionIndex].q;
+            userText = ""; 
+            updateDisplay();
+        }
+
+        function showCustomAlert(message, isSuccess) {
+            const alertBox = document.getElementById('custom-alert');
+            alertBox.innerText = message;
+            alertBox.className = isSuccess ? 'alert-success' : 'alert-error';
+            alertBox.style.top = "30px";
+            setTimeout(() => alertBox.style.top = "-150px", 2500);
+        }
+
+        // בינה מלאכותית של החידון
+        function checkAnswer() {
+            if(userText.trim() === "") return;
+            
+            const currentQ = quizDatabase[questionIndex];
+            
+            // המערכת בודקת האם לפחות אחת ממילות המפתח קיימת בתשובה של המשתמש
+            const isAnswerCorrect = currentQ.keys.some(keyword => userText.includes(keyword)) || userText === currentQ.a;
+
+            if(isAnswerCorrect) {
+                currentPoints += 5;
+                questionIndex++;
+                showCustomAlert("תשובה מדויקת! +5 נקודות", true);
+                updateScoreUI();
+                showNextQuestion();
+                saveData();
+            } else {
+                showCustomAlert("לא מדויק... נסה לנסח אחרת!", false);
+            }
+        }
+
+        function updateScoreUI() {
+            document.getElementById('pts-display').innerText = "PTS: " + currentPoints;
+        }
+
+        function saveData() {
+            localStorage.setItem('kramel_pts', currentPoints);
+            localStorage.setItem('kramel_q_idx', questionIndex);
+        }
+
+        window.onload = buildKeyboard;
+    </script>
+</body>
+</html>
